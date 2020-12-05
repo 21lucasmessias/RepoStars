@@ -14,7 +14,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path='/' exact component={Landing}/>
-        <Route path='/search' exact component={Search}/>
+        <Route path='/search/:language' exact component={Search}/>
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
