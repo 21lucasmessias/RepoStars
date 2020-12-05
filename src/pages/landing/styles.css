@@ -1,0 +1,115 @@
+#landing {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  position: relative;
+}
+
+#landing .logo {
+  font: 800 84px Nunito, sans-serif;
+  padding-bottom: 10rem;
+
+  text-align: center;
+
+  transition: font-size 0.5s;
+}
+
+#landing .label-search {
+  text-align: center;
+  padding-bottom: 2rem;
+
+  transition: font-size 0.5s;
+}
+
+#landing .search-box {
+  position: relative;
+  z-index: 1;
+}
+
+#landing .search-box input{
+  position: relative;
+  z-index: 2;
+  border: 0;
+  border-radius: 20px;
+
+  width: 30rem;
+  height: 3rem;
+
+  font-size: 20px;
+  text-align: center;
+  color: black;
+
+  box-shadow: 5px 10px lightseagreen;
+
+  transition: width 0.5s;
+}
+
+#landing .search-box input:focus {
+  outline: none;
+}
+
+#landing .search-box a{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+  position: absolute;
+  z-index: 5;
+  right: 8px;
+  top: -2px;
+}
+
+
+@media only screen and (max-width: 850px) {
+  p {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  p {
+    font-size: 18px;
+  }
+
+  #landing .logo {
+    font-size: 70px;
+  }
+
+  #landing .search-box input {
+    width: 25rem;
+  }
+}
+
+@media only screen and (max-width: 412px) {
+  p {
+    font-size: 18px;
+  }
+
+  #landing .logo {
+    font-size: 60px;
+  }
+
+  #landing .search-box input {
+    width: 20rem;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  p {
+    font-size: 18px;
+  }
+
+  #landing .logo {
+    font-size: 50px;
+  }
+
+  #landing .search-box input {
+    width: 17rem;
+  }
+}

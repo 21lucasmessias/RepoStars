@@ -1,9 +1,18 @@
 * {
-  border: 0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.body {
-  background: #124141;
+body {
+  background:#DCE1DE;
+  background-image: url('../assets/images/placeholder-img@16x9.jpg');
+  background-repeat: repeat;
+  width: 100vw;
+  height: 100vh;
+}
+
+body, input, button, textarea {
+  font: 600 25px Nunito, sans-serif;
+  color: #DCE1DE;
 }
