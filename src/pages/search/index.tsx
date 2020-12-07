@@ -1,153 +1,96 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, FC } from 'react';
+import { useParams } from 'react-router-dom';
+import { iRepo, iURLParams } from '../../types/repo';
 
-import { Link, useParams } from 'react-router-dom';
-
-import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import Star from '@material-ui/icons/Star'
-import GitHub from '@material-ui/icons/GitHub'
-import Assignment from '@material-ui/icons/Assignment'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import Info from '@material-ui/icons/Info'
-import Share from '@material-ui/icons/Share'
+import { CircularProgress } from '@material-ui/core';
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Api from '../../api/api';
+import RepoCard from '../../components/RepoCard';
+import LookupSearch from '../../components/LookupSearch';
 
 import './styles.css';
 
-interface iRepo {
-  picture: string,
-  name: string,
-  repo: string,
-  link: string,
-  about: string,
-  stars: number,
-  forks: number
-}
+const Search: FC = () => {
+  const {language} = useParams<iURLParams>();
 
-interface iParams {
-  language: string
-}
-
-interface iData {
-  items: Array<{
-    name: string,
-    owner: {
-      login: string,
-      avatar_url: string
-    },
-    description: string,
-    html_url: string,
-    forks: number,
-    stargazers_count: number,
-  }>
-}
-
-const Search: React.FC = () => {
-  const {language} = useParams<iParams>();
-
-  const [searchText, setSearchText] = useState(language);
-  const [searchPath, setSearchPath] = useState('');
-  const [searchEmpty, setSearchEmpty] = useState(false);
-  
-  const [gitPage, setGitPage] = useState(0);
-
+  const [gitPage, setGitPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [repos, setRepos] = useState<Array<iRepo>>([]);
+  const [repositories, setRepositories] = useState<Array<iRepo>>([]);
 
   const fetchNextRepos = useRef(async () => {});
 
   fetchNextRepos.current = async () => {
-    Api.get('/repositories', {
-      params: {
-        q: `language:${language}`,
-        sort: 'stars',
+    try{
+      const res = await Api.get('/repositories', {params: {
+        name: language,
         page: gitPage
-      }
-    })
-    .then((res) => {
-      let newRepos:Array<iRepo> = [];
-
-      (res.data as iData).items.forEach((item) => {
+      }});
+        
+      let newRepos: Array<iRepo> = [];
+  
+      (res.data as  Array<iRepo>).forEach((item) => {
         newRepos = [...newRepos, {
-          picture: item.owner.avatar_url || '',
-          name: item.owner.login || '',
-          repo: item.name || '',
-          link: item.html_url || '',
-          about: item.description || '',
-          stars: item.stargazers_count || 0,
+          picture: item.picture,
+          name: item.name || '',
+          repo: item.repo || '',
+          link: item.link || '',
+          about: item.about || '',
+          stars: item.stars || 0,
           forks: item.forks || 0,
         }];
       });
-  
-      setRepos([...repos, ...newRepos]);
-    })
-    .catch((e) => {
+
+      if(gitPage === 1){
+        setRepositories(newRepos);
+      } else {
+        setRepositories([...repositories, ...newRepos]);
+      }
+    } catch(e) {
       console.log(e);
       setHasMore(false);
-    });
+    }
   }
 
   useEffect(() => {
-    if(gitPage !== -1)
+    fetchNextRepos.current();
+  }, [language])
+
+  const handleSearch = async (lan: string | null) => {
+    if(lan === null){
+      return;
+    }
+
+    if(lan !== language){
+      setRepositories([]);
+      setHasMore(true);
+      setGitPage(1);
+    }
+  }
+
+  const handleNextRepos = () => {
+    if(repositories.length > 0){
+      setGitPage(gitPage + 1);
       fetchNextRepos.current();
-  }, [gitPage, language]);
+    }
+  }
 
   return (
     <div id='search'>
       <strong className='logo'>TOPi Repo</strong>
 
       <div className='input-box'>
-        <TextField
-          id="input-with-icon-textfield"
-          error={searchEmpty}
-          value={searchText}
-          onChange={(e) => setSearchText(e.currentTarget.value)}
-          onFocus={() => setSearchEmpty(false)}
-          fullWidth={true}
-          
-          InputProps={{
-            fullWidth: true,
-
-            endAdornment: (
-              <InputAdornment position="end">
-                <Link 
-                  to={searchPath}
-                  onClickCapture={() => {
-                    if(searchText === ''){
-                      setSearchEmpty(true);
-                      setSearchPath('/');
-                    } else {
-                      setRepos([]);
-                      setGitPage(-1);
-                      setSearchPath(`/search/${searchText}`);
-                    }
-                  }}>
-                    <SearchIcon color="action" fontSize="large"/>
-                </Link>
-              </InputAdornment>
-            ),
-
-            inputProps: {
-              style: {
-                textAlign: 'center',
-                fontSize: '20px',
-                color: '#DCE1DE'
-              },
-            },
-          }}
-        />
+        <LookupSearch onClick={(lan: string | null) => handleSearch(lan)}/>
       </div>
 
       <div className='wrapper'>
         <InfiniteScroll
           className='infinite-scroll'
-          dataLength={repos.length}
+          dataLength={repositories.length}
           hasMore={hasMore}
           height='800px'
-          next={() => setGitPage(gitPage+1)}
+          next={handleNextRepos}
 
           loader={
             <div className='loading'>
@@ -156,44 +99,8 @@ const Search: React.FC = () => {
           }
         >
           {
-            repos.map((repo, index) => (
-              <div className='repo' key={index}>
-                <div className='profile' style={{backgroundImage:`url(${repo.picture})`}}/>
-
-                <div className='name-repository'>
-                  <div className='name'>
-                    <AccountCircle fontSize='large'/>
-                    <h1>{repo.name}</h1>
-                  </div>
-                  <div className='repository'>
-                    <Assignment fontSize='large'/>
-                    <h1>{repo.repo}</h1>
-                  </div>
-                </div>
-
-                <div className='link-about'>
-                  <div className='link'>
-                    <GitHub fontSize='large'/>
-                    <a href={repo.link}>{repo.link}</a>
-                  </div>
-                  <div className='about'>
-                    <Info fontSize='large'/>
-                    <h1>{repo.about.substr(0, 70)}</h1>
-                  </div>
-
-                </div>
-
-                <div className='stars-forks'>
-                  <div className='stars'>
-                    <Star fontSize='large' color='primary'/>
-                    <p>{repo.stars}</p>
-                  </div>
-                  <div className='forks'>
-                    <Share fontSize='large' color='action'/>
-                    <p>{repo.forks}</p>
-                  </div>
-                </div>
-              </div>
+            repositories.map((repo, index) => (
+              <RepoCard key={index} repo={repo} />
             ))
           }
         </InfiniteScroll>
