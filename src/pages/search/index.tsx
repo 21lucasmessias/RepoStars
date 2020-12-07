@@ -20,6 +20,7 @@ const Search: FC = () => {
   const [repositories, setRepositories] = useState<Array<iRepo>>([]);
 
   const fetchNextRepos = useRef(async () => {});
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   fetchNextRepos.current = async () => {
     try{
@@ -84,14 +85,13 @@ const Search: FC = () => {
         <LookupSearch onClick={(lan: string | null) => handleSearch(lan)}/>
       </div>
 
-      <div className='wrapper'>
+      <div className='wrapper' ref={wrapperRef}>
         <InfiniteScroll
           className='infinite-scroll'
           dataLength={repositories.length}
           hasMore={hasMore}
-          height='800px'
           next={handleNextRepos}
-
+          height={`800px`}
           loader={
             <div className='loading'>
               <CircularProgress color='inherit' />

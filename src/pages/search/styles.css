@@ -21,8 +21,7 @@
 
 #search .logo {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  bottom: 5px;
 
   user-select: none;
 }
@@ -32,7 +31,7 @@
   align-items: center;
   justify-content: center;
   width: 1500px;
-  padding-left: 33px;
+  padding-left: 34px;
 
   overflow: hidden;
 }
@@ -45,4 +44,110 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media only screen and (max-width: 1550px) {
+  #search .wrapper .infinite-scroll{
+    width: 1300px;
+  }
+  #search .wrapper {
+    width: 1300px;
+  }
+}
+
+@media only screen and (max-width: 1350px) {
+  #search .wrapper .infinite-scroll{
+    width: 1100px;
+  }
+  #search .wrapper {
+    width: 1100px;
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  #search .wrapper .infinite-scroll{
+    width: 900px;
+  }
+
+  #search .wrapper {
+    width: 900px;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  #search .wrapper .infinite-scroll{
+    width: 800px;
+  }
+
+  #search .wrapper {
+    width: 800px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  #search .wrapper .infinite-scroll{
+    width: 700px;
+  }
+
+  #search .wrapper {
+    width: 700px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  #search .wrapper .infinite-scroll{
+    width: 600px;
+  }
+
+  #search .wrapper {
+    width: 600px;
+  }
+
+  #search .input-box {
+    width: 25rem;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  #search .wrapper .infinite-scroll{
+    width: 500px;
+  }
+
+  #search .wrapper {
+    width: 500px;
+  }
+
+  #search .input-box {
+    width: 20rem;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  #search .wrapper .infinite-scroll{
+    width: 400px;
+  }
+
+  #search .wrapper {
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #search .wrapper .infinite-scroll{
+    width: 320px;
+  }
+
+  #search .wrapper {
+    width: 320px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  #search .wrapper .infinite-scroll{
+    width: 300px;
+  }
+
+  #search .wrapper {
+    width: 300px;
+  }
 }

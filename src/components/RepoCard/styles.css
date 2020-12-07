@@ -2,8 +2,11 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
-  grid-template-areas: 'profile' 'name-repo' 'link-about' 'stars-forks';
+  grid-template:
+    "profile name about stars forks" 1fr
+    "profile repo about stars forks" 1fr
+    "profile link about stars forks" 1fr
+    /1fr     2fr  2fr   0.7fr 0.7fr;
 
   border: solid rgba(0, 0, 0, 0.267);
   border-radius: 20px;
@@ -11,24 +14,20 @@
 
   color: #000;
   font-size: 10px;
+
+  padding: 15px;
   
   background-color: #e7e5e5bd;
 }
 
-#search .wrapper .infinite-scroll .repo h1 {
-  padding-left: 10px;
-}
-
 #search .wrapper .infinite-scroll .repo .profile {
+  grid-area: profile;
+  
   width: 150px;
   height: 150px;
   
   align-self: center;
   justify-self: center;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
   
   border: 2px solid #8d8787;
   border-radius: 50%;
@@ -40,61 +39,52 @@
   background-size: contain;
 }
 
-#search .wrapper .infinite-scroll .repo .name-repository,
-#search .wrapper .infinite-scroll .repo .link-about {
-  width: 100%;
-  height: 100%;
+#search .wrapper .infinite-scroll .repo .name{
+  grid-area: name;
+
   align-self: center;
-  justify-self: center;
-
-  display: grid;
-  grid-template-rows: 1fr
-                      1fr;
-
+  display: flex;
+  flex-direction: row;
   align-items: center;
+
+  padding-left: 8px;
 }
 
-#search .wrapper .infinite-scroll .repo .name-repository div,
-#search .wrapper .infinite-scroll .repo .link-about div{
+#search .wrapper .infinite-scroll .repo .link{
+  grid-area: link;
+
+  align-self: center;
+}
+
+#search .wrapper .infinite-scroll .repo .repository{
+  grid-area: repo;
+
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding-left: 8px;
+}
+
+#search .wrapper .infinite-scroll .repo .about{
+  grid-area: about;
+
+  align-self: center;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-#search .wrapper .infinite-scroll .repo .name-repository{
-  grid-template-areas: name
-                       repo;
-}
-
-#search .wrapper .infinite-scroll .repo .link-about{
-  grid-template-areas: link
-                       about;
-}
-
-#search .wrapper .infinite-scroll .repo .link-about a {
-  text-decoration: none;
-  padding-left: 10px;
-  font-size: 20px;
-}
-
-#search .wrapper .infinite-scroll .repo .stars-forks {
-  width: 100%;
-  height: 100%;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  align-items: center;
-  justify-items: center;
-
-  padding-right: 30px;
-}
-
-#search .wrapper .infinite-scroll .repo .stars-forks div {
-  border: 2px solid #1e345f;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
+#search .wrapper .infinite-scroll .repo .stars{
+  grid-area: stars;
+  align-self: center;
+  justify-self: center;
+  
+  border: 2px solid #838383;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
 
   display: flex;
   flex-direction: column;
@@ -102,4 +92,155 @@
   justify-content: center;
 
   font-size: 13px;
+}
+
+#search .wrapper .infinite-scroll .repo .forks {
+  grid-area: forks;
+  align-self: center;
+  justify-self: center;
+
+  border: 2px solid #838383;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+}
+
+#search .wrapper .infinite-scroll .repo h1 {
+  padding-left: 10px;
+}
+
+#search .wrapper .infinite-scroll .repo .link a {
+  text-decoration: none;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 1550px) {
+  #search .wrapper .infinite-scroll .repo .stars,
+  #search .wrapper .infinite-scroll .repo .forks {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 1350px) {
+  #search .wrapper .infinite-scroll .repo {
+    grid-template:
+      "profile name about stars" 1fr
+      "profile repo about stars" 1fr
+      "profile repo about forks" 1fr
+      "profile link about forks" 1fr
+      / 1fr    2fr  2fr   0.7fr;
+  }
+
+  #search .wrapper .infinite-scroll .repo .stars,
+  #search .wrapper .infinite-scroll .repo .forks {
+    width: 80px;
+    height: 80px;
+  }
+  
+}
+
+@media only screen and (max-width: 1150px) {
+  #search .wrapper .infinite-scroll .repo .profile {
+    width: 120px;
+    height: 120px;
+  }
+
+  #search h1 {
+    font-size: 17px;
+  }
+
+  #search .wrapper .infinite-scroll .repo .link a {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  #search .wrapper .infinite-scroll .repo {
+    grid-template:
+      "repo  repo  repo  repo  profile" 2fr
+      "about about about about profile" 1fr
+      "about about about about name"    1fr
+      "stars stars forks forks link"    1fr
+      /1fr   1fr   1fr   1fr   1fr;
+  }
+
+  #search .wrapper .infinite-scroll .repo .icon {
+    display: none;
+  }
+
+  #search .wrapper .infinite-scroll .repo h1 {
+    padding: 0;
+  }
+
+  #search .wrapper .infinite-scroll .repo .profile {
+    width: 120px;
+    height: 120px;
+  }
+
+  #search .wrapper .infinite-scroll .repo .name {
+    justify-content: center;
+    align-content: flex-start;
+  }
+
+  #search .wrapper .infinite-scroll .repo .name h1 {
+    font-family: 'Archivo Black', sans-serif;
+  }
+
+  #search .wrapper .infinite-scroll .repo .repository {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+
+  #search .wrapper .infinite-scroll .repo .repository h1 {
+    font-size: 50px;
+    font-family: 'Archivo Black';
+  }
+
+  #search .wrapper .infinite-scroll .repo .link a {
+    font-size: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #search .wrapper .infinite-scroll .repo .about {
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+
+}
+
+@media only screen and (max-width: 850px) {
+  #search .wrapper .infinite-scroll .repo .repository h1 {
+    font-size: 40px;
+    font-family: 'Archivo Black';
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  #search .wrapper .infinite-scroll .repo .repository h1 {
+    font-size: 30px;
+    font-family: 'Archivo Black';
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #search .wrapper .infinite-scroll .repo .stars,
+  #search .wrapper .infinite-scroll .repo .forks {
+    width: 60px;
+    height: 60px;
+  }
 }
