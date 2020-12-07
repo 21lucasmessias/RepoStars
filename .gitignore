@@ -6,7 +6,6 @@
 /.pnp
 .pnp.js
 .env
-.eslintcache
 
 # testing
 /coverage
@@ -25,3 +24,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
+
+.eslintcache
