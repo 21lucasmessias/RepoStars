@@ -15,3 +15,7 @@ export type iURLParams = {
 export type iRepoCard = {
   repo: iRepo
 }
+
+export interface iLookupSearch {
+  onClick : (lan: string | null) => void
+}

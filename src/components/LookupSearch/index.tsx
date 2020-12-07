@@ -6,10 +6,8 @@ import Api from '../../api/api';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { iLookupSearch } from '../../types/repo';
 
-interface iLookupSearch {
-  onClick : (lan: string | null) => void
-}
 
 const LookupSearch: React.FC<iLookupSearch> = ({onClick}) => {
   const [languagesLookup, setLanguagesLookup] = useState<Array<string>>([]);

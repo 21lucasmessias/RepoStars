@@ -5,6 +5,8 @@
 .vscode
 /.pnp
 .pnp.js
+.env
+.eslintcache
 
 # testing
 /coverage
