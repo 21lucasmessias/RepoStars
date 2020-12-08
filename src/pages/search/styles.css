@@ -163,11 +163,23 @@
 
 @media only screen and (max-height: 800px) {
   #search .wrapper {
+    height: 650px;
+  }
+}
+
+@media only screen and (max-height: 750px) {
+  #search .wrapper {
     height: 600px;
   }
 }
 
 @media only screen and (max-height: 700px) {
+  #search .wrapper {
+    height: 550px;
+  }
+}
+
+@media only screen and (max-height: 650px) {
   #search .wrapper {
     height: 500px;
   }
@@ -175,11 +187,23 @@
 
 @media only screen and (max-height: 600px) {
   #search .wrapper {
+    height: 450px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  #search .wrapper {
     height: 400px;
   }
 }
 
-@media only screen and (max-height: 600px) {
+@media only screen and (max-height: 500px) {
+  #search .wrapper {
+    height: 350px;
+  }
+}
+
+@media only screen and (max-height: 450px) {
   #search .wrapper {
     height: 300px;
   }
