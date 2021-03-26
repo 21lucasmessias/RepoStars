@@ -1,1 +1,1 @@
-https://topirepo.herokuapp.com/
+https://repo-stars.herokuapp.com/
